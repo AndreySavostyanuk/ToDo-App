@@ -2,20 +2,15 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
   color: white;
 }
 
@@ -23,11 +18,143 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add{
+  width: 500px;
+  background-color: #ffffff;
+  margin: 0px;
+}
+.add__btn{
+
+}
+
+.add__author{
+  width: 100%;
+}
+
+.checkbox{
+  float: left;
+  margin-left: 10px;
+}
+
+
+
+
+.todo-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  font-size: 15px;
+  color: #333333;
+}
+
+.text{
+  display: flex;
+  flex: 1;
+  font-size: 20px;
+  border: none;
+  border-bottom: 1px solid #cecece;
+  padding: 10px;
+}
+
+p {
+  color: #999999;
+}
+
+.todo-list {
+  width: 400px;
+  background-color: white;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #efefef;
+  box-shadow:
+    /* The top layer shadow */
+          0 1px 1px rgba(0,0,0,0.15),
+            /* The second layer */
+          0 10px 0 -5px #eee,
+            /* The second layer shadow */
+          0 10px 1px -4px rgba(0,0,0,0.15),
+            /* The third layer */
+          0 20px 0 -10px #eee,
+            /* The third layer shadow */
+          0 20px 1px -9px rgba(0,0,0,0.15);
+}
+
+.footerItems{
+  display: flex;
+  justify-content: center;
+}
+
+.spisokItems{
+  color: #999999;
+  font-family: Roboto, sans-serif;
+
+  margin: 0px;
+  padding: 9px;
+}
+.spisokItems li {
+  border-radius: 3px;
+
+  border-radius: 3px;
+}
+
+.spisokItems li:hover {
+  background-color: #cecece;
+  cursor: pointer;
+}
+
+.spisokItems li {
+  font-size: 15px;
+  display: inline;
+  margin-right: 5px;
+  padding: 2px;
+}
+
+
+.button{
+  margin-top: 11px;
+width: 50px;
+  height: 25px;
+border: 1px solid #999999;
+  background-color: #ffffff;
+}
+.button:hover{
+  cursor: pointer;
+  background-color: #999999;
+}
+
+.text__count{
+  color:  #999999 ;
+  float: left;
+  font-size: 15px;
+  display: inline-table;
+  margin-right: 5px;
+  margin-top: 8px;
+
+
+}
+
+.text__text{
+  margin-left: 10px ;
+}
+
+.text__changed{
+  font-Style: italic;
+  color: #cdcdcd;
+  text-decoration: line-through;
+  margin-left: 10px ;
+}
+
+.btn {
+  color: black;
+  border: 1px solid #777;
+  background: #fff;
+}
+
+.active, .btn:hover {
+  background: green;
+  color: #fff;
 }
