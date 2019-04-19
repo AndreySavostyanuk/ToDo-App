@@ -23,9 +23,6 @@
   background-color: #ffffff;
   margin: 0px;
 }
-.add__btn{
-
-}
 
 .add__author{
   width: 100%;
@@ -55,8 +52,8 @@
   flex: 1;
   font-size: 20px;
   border: none;
-  border-bottom: 1px solid #cecece;
   padding: 10px;
+  outline:none;
 }
 
 p {
@@ -70,6 +67,12 @@ p {
   display: flex;
   flex-direction: column;
   border: 1px solid #efefef;
+
+}
+
+.footerItems{
+  display: flex;
+  justify-content: center;
   box-shadow:
     /* The top layer shadow */
           0 1px 1px rgba(0,0,0,0.15),
@@ -83,15 +86,10 @@ p {
           0 20px 1px -9px rgba(0,0,0,0.15);
 }
 
-.footerItems{
-  display: flex;
-  justify-content: center;
-}
-
 .spisokItems{
   color: #999999;
   font-family: Roboto, sans-serif;
-
+  display: inline-table;
   margin: 0px;
   padding: 9px;
 }
@@ -120,10 +118,12 @@ width: 50px;
   height: 25px;
 border: 1px solid #999999;
   background-color: #ffffff;
+  outline: none;
 }
 .button:hover{
   cursor: pointer;
   background-color: #999999;
+  color: #ffffff;
 }
 
 .text__count{
@@ -133,18 +133,24 @@ border: 1px solid #999999;
   display: inline-table;
   margin-right: 5px;
   margin-top: 8px;
-
+  font-family: Roboto, sans-serif;
 
 }
 
 .text__text{
   margin-left: 10px ;
+  text-align: left;
+  flex: 1;
+  display: inline;
 }
 
 .text__changed{
   font-Style: italic;
   color: #cdcdcd;
   text-decoration: line-through;
+  margin-left: 10px ;
+  flex: 1;
+  text-align: left;
   margin-left: 10px ;
 }
 
@@ -157,4 +163,21 @@ border: 1px solid #999999;
 .active, .btn:hover {
   background: green;
   color: #fff;
+}
+.image{
+  height: 15px;
+  margin-right: 10px;
+}
+
+.tt{
+  background-color: red;
+}
+.image__arrow{
+  height: 25px;
+  width: 25px;
+  padding: 7px;
+}
+.header{
+  display: flex;
+  border-bottom: 1px solid #cecece;
 }
