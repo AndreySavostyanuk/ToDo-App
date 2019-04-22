@@ -5,37 +5,24 @@ class TodoList extends Component {
 
     state = {
         text: '',
-        id:'',
-        active:'',
     }
 
-
  renderText = () => {
-     console.log("text", this.props)
      const { data } = this.props
      let textTemplate = null
 
-     console.log("data при рендере" , data)
-
      if (data.length) {
          textTemplate = data.map((item) => {
-             return <TodoItem key={item.id} data={item} onDelete={this.props.onDeleteItem} checkBoxChange={this.props.checkBoxChange} />
+             return <TodoItem key={item.id} data={item} active={item.active} display={item.display} checkedOne={this.props.checkedOne} onDelete={this.props.onDeleteItem} />
          })
      }
-
+     console.log("12",data);
      return textTemplate
 
  }
 
- onBtnClickHandler = e => {
-     e.preventDefault()
-     const {text} = this.state
-
-     this.props.onAddtext({
-         id: +new Date(),
-         text,
-     })
-
+ onBtnClickHandler = () => {
+       this.props.deleteAllItem()
  }
 
  _handleKeyDown = (e) => {
@@ -44,12 +31,15 @@ class TodoList extends Component {
          e.preventDefault()
          const {text} = this.state
 
+
          if(text.trim() == false){
-             return alert("нужно что нибудь ввести")
+             return alert("необходимо что нибудь ввести")
          } else {
              this.props.onAddtext({
                  id: +new Date(),
                  text,
+                 active: false,
+                 display: 'displayNone'
              })
          }
      }
@@ -63,28 +53,25 @@ class TodoList extends Component {
      return false
  }
 
-
  handleChandge = (e) =>{
      const  {id, value } = e.currentTarget
-     console.log("что это", e.currentTarget)
      this.setState({ [id]: value })
  }
 
-
 arrowCheck = () => {
-
-        console.log("hi1", this.props.checked())
+    this.props.checkedAll()
 }
 
  render() {
      const{text2} = this.props
      const{data} = this.props
-
+     const{data2} = this.props
+    console.log('сообщение',data2)
      return (
          <div className="todo-list">
              <div className="header">
-                 {data.length ?
-                     <img src="https://image.flaticon.com/icons/png/512/25/25623.png" className="image__arrow" arrowCheck={this.arrowCheck()} onClick={this.arrowCheck}/>
+                 { data.length ?
+                     <img src="https://image.flaticon.com/icons/png/512/25/25623.png" className="image__arrow"  onClick={this.arrowCheck}/>
                  : null}
                  <input
                      id='text'
@@ -99,7 +86,7 @@ arrowCheck = () => {
 
              {this.renderText()}
 
-             {data.length ?
+             {data2.length  ?
                  <div
                      className='footerItems'>
 
@@ -112,16 +99,16 @@ arrowCheck = () => {
 
                      <ul
                          className='spisokItems'>
-                         <li>All</li>
-                         <li>Active</li>
-                         <li>Completed</li>
+                         <li onClick={this.props.filterAll}>All</li>
+                         <li onClick={this.props.filterActive}>Active</li>
+                         <li onClick={this.props.filterCompleted}>Completed</li>
                      </ul>
 
                      <button
                          className="button"
                          onClick={this.onBtnClickHandler}
-                         disabled={!this.validate()}>
-                         Add
+                         disabled={!this.validate}>
+                         Clear
                      </button>
 
                  </div>
