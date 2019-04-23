@@ -22,10 +22,10 @@ class TodoItem extends React.Component {
     }
 
     handler = () => {
-        if(this.props.active === true){
+       
             const {id} = this.props.data
             this.props.onDelete(id)
-        }
+
     }
 
     inputChange = () => {

@@ -17,7 +17,7 @@ class TodoList extends Component {
                 return <TodoItem key={item.id} data={item} active={item.active} changeText={this.props.textСhange}  checkedOne={this.props.checkedOne} onDelete={this.props.onDeleteItem} />
             })
         }
-        console.log("12",data);
+
         return textTemplate
 
     }
@@ -65,21 +65,13 @@ class TodoList extends Component {
 
         console.log("current",  e.currentTarget.innerHTML )
 
-        // e.currentTarget.className = e.currentTarget.innerHTML;
+
 
         this.state.currentList = e.currentTarget.innerHTML
 
         this.props.modeChange(e.currentTarget.innerHTML)
 
-        // if(e.currentTarget.innerHTML === 'All'){
-        //     this.props.filterAll()
-        // }
-        // if(e.currentTarget.innerHTML === 'Active'){
-        //     this.props.filterActive()
-        // }
-        // if(e.currentTarget.innerHTML === 'Completed'){
-        //     this.props.filterCompleted()
-        // }
+
 
     }
 

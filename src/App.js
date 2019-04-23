@@ -36,7 +36,6 @@ class App extends React.Component {
 
         this.setState({
             text: newData,
-
         });
     }
 
@@ -84,44 +83,10 @@ class App extends React.Component {
         })
     }
 
-    // filterAll = () => {
-    //     let  newData = [...this.state.todo];
-    //
-    //     if(newData !== this.state.text)
-    //     {
-    //         this.setState({
-    //             text: newData,
-    //         })
-    //     }
-    // }
-    //
-    // filterActive = () => {
-    //     let  newData2 = [...this.state.todo];
-    //
-    //     let newArray = newData2.filter((item)=>{
-    //         return item.active === false
-    //     })Zz
-    //
-    //     this.setState({
-    //         text: newArray
-    //     })
-    // }
-    //
-    // filterCompleted = () => {
-    //     let  newData2 = [...this.state.todo];
-    //
-    //     let newArray = newData2.filter((item)=>{
-    //         return item.active === true
-    //     })
-    //
-    //     this.setState({
-    //         text: newArray,
-    //     })
-    // }
 
     textСhange = (id , text) => {
         let  newData = [...this.state.text];
-        console.log("что такое text",text)
+
         let newArray = newData.map((item) => {
             if (item.id === +id){
                 item.text = text
@@ -158,15 +123,13 @@ class App extends React.Component {
             })
             return newArray
         }
-        console.log("newArray", newArray)
+
 
     }
 
 
     render() {
-        console.log('app',this.state.text)
-        console.log("mode", this.state.mode)
-        console.log("filter", this.filter())
+
         return (
             <div className="App">
                 <header className="App-header">
