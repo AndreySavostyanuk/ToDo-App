@@ -5,6 +5,7 @@ class TodoList extends Component {
 
     state = {
         text: '',
+        currentList: 'All'
     }
 
  renderText = () => {
@@ -13,7 +14,7 @@ class TodoList extends Component {
 
      if (data.length) {
          textTemplate = data.map((item) => {
-             return <TodoItem key={item.id} data={item} active={item.active} display={item.display} checkedOne={this.props.checkedOne} onDelete={this.props.onDeleteItem} />
+             return <TodoItem key={item.id} data={item} active={item.active} changeText={this.props.textСhange}  checkedOne={this.props.checkedOne} onDelete={this.props.onDeleteItem} />
          })
      }
      console.log("12",data);
@@ -26,11 +27,9 @@ class TodoList extends Component {
  }
 
  _handleKeyDown = (e) => {
-
      if (e.key === 'Enter') {
          e.preventDefault()
          const {text} = this.state
-
 
          if(text.trim() == false){
              return alert("необходимо что нибудь ввести")
@@ -39,7 +38,6 @@ class TodoList extends Component {
                  id: +new Date(),
                  text,
                  active: false,
-                 display: 'displayNone'
              })
          }
      }
@@ -62,10 +60,29 @@ arrowCheck = () => {
     this.props.checkedAll()
 }
 
+    isActive = (e) =>{
+
+        console.log("current",  e.currentTarget.innerHTML )
+
+       // e.currentTarget.className = e.currentTarget.innerHTML;
+
+        this.state.currentList = e.currentTarget.innerHTML
+
+        if(e.currentTarget.innerHTML === 'All'){
+            this.props.filterAll()
+        }
+        if(e.currentTarget.innerHTML === 'Active'){
+            this.props.filterActive()
+        }
+        if(e.currentTarget.innerHTML === 'Completed'){
+            this.props.filterCompleted()
+        }
+
+    }
+
  render() {
-     const{text2} = this.props
-     const{data} = this.props
-     const{data2} = this.props
+     const{text2, data, data2} = this.props
+
     console.log('сообщение',data2)
      return (
          <div className="todo-list">
@@ -93,23 +110,23 @@ arrowCheck = () => {
                      <span className={'text__count'}>
                          {
                              data.length ?
-                                 <p className={'text__count'}>selected tasks: {data.length}</p> : null
+                                 <p className={'text__count'}>{data.length} items left </p> : null
                          }
                      </span>
 
                      <ul
                          className='spisokItems'>
-                         <li onClick={this.props.filterAll}>All</li>
-                         <li onClick={this.props.filterActive}>Active</li>
-                         <li onClick={this.props.filterCompleted}>Completed</li>
+                         <li className={this.state.currentList === 'All' ? 'All' : ''} onClick={this.isActive} value='All' >All</li>
+                         <li className={this.state.currentList === 'Active' ? 'Active' : ''} onClick={this.isActive} value='Active' >Active</li>
+                         <li className={this.state.currentList === 'Completed' ? 'Completed' : ''} onClick={this.isActive} value='Completed' >Completed</li>
                      </ul>
 
-                     <button
+                     <p
                          className="button"
                          onClick={this.onBtnClickHandler}
                          disabled={!this.validate}>
-                         Clear
-                     </button>
+                         Clear 
+                     </p>
 
                  </div>
               : null}

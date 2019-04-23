@@ -68,7 +68,7 @@ class App extends React.Component {
 
             let newArray = newData.map((item) => {
 
-                   if ( item.active == false ) {
+                   if ( item.active === false) {
                        item.active = true
                    }
                 return item
@@ -91,11 +91,10 @@ class App extends React.Component {
         }
 
     filterActive = () => {
-        let  newData = [...this.state.text];
         let  newData2 = [...this.state.todo];
 
         let newArray = newData2.filter((item)=>{
-            return item.active == false
+            return item.active === false
         })
 
         this.setState({
@@ -104,11 +103,10 @@ class App extends React.Component {
     }
 
     filterCompleted = () => {
-        let  newData = [...this.state.text];
         let  newData2 = [...this.state.todo];
 
         let newArray = newData2.filter((item)=>{
-            return item.active == true
+            return item.active === true
         })
 
         this.setState({
@@ -116,11 +114,28 @@ class App extends React.Component {
         })
     }
 
+    textСhange = (id , text) => {
+        let  newData = [...this.state.text];
+        console.log("что такое text",text)
+        let newArray = newData.map((item) => {
+            if (item.id === +id){
+                item.text = text
+            }
+            return item
+        });
+
+        this.setState({
+            text: newArray
+        })
+    }
+
+
   render() {
+      console.log('app',this.state.text)
     return (
       <div className="App">
         <header className="App-header">
-            <TodoList data={this.state.text} data2={this.state.todo} onAddtext={this.handleAdd} filterAll={this.filterAll} filterCompleted={this.filterCompleted}  filterActive={this.filterActive } deleteAllItem={this.deleteAllItem} checkedAll={this.checkedAll} checkedOne={this.checkedOne} onDeleteItem={this.deleteItem}  />
+            <TodoList data={this.state.text} data2={this.state.todo} textСhange={this.textСhange} onAddtext={this.handleAdd} filterAll={this.filterAll} filterCompleted={this.filterCompleted}  filterActive={this.filterActive } deleteAllItem={this.deleteAllItem} checkedAll={this.checkedAll} checkedOne={this.checkedOne} onDeleteItem={this.deleteItem}  />
         </header>
       </div>
     );

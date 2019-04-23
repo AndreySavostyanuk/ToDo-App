@@ -2,6 +2,10 @@ import React from 'react'
 
 
 class TodoItem extends React.Component {
+    state = {
+        forEdit : 'false' ,
+        text: this.props.data.text
+    }
 
     handleCheckboxChange = e => {
         console.log("14",e.currentTarget.id)
@@ -12,33 +16,61 @@ class TodoItem extends React.Component {
     }
 
     validate = () => {
-        if(this.props.active == true){
+        if(this.props.active === true){
         }
         return false
     }
 
     handler = () => {
-        if(this.props.active == true){
+        if(this.props.active === true){
             const {id} = this.props.data
             this.props.onDelete(id)
         }
     }
 
+    inputChange = () => {
+        this.setState({
+            forEdit : !this.state.forEdit
+        });
+        // this.state.forEdit = e.currentTarget.readOnly
+        console.log("readonly",  this.state.forEdit)
+    }
+
+    inputHandler = e => {
+      this.setState({
+          text : e.currentTarget.value
+      })
+    }
+
+
+
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            this.props.changeText(e.currentTarget.id , e.currentTarget.value)
+
+            this.setState({
+                forEdit : !this.state.forEdit
+            });
+        }
+    }
+
+
+
     render() {
-        const { text } = this.props.data
-        console.log("первая data", this.props)
 
         return (
             <div className='todo-item'>
+
                 <input
                     name="completed"
                     className='checkbox'
                     type="checkbox"
                     checked={this.props.active}
-                    onChange={this.handleCheckboxChange}
+                   onChange={this.handleCheckboxChange}
                     id={this.props.data.id}/>
-                <input value={text} defaultChecked={this.validate}   className={this.props.active==true ? 'text__changed': 'text__text'} />
-                <img onClick={this.handler} src='https://iconizer.net/files/Web_Design_Creatives/orig/Cross-lines.png' className='image'/>
+                <label for={this.props.data.id}></label>
+                <input id={this.props.data.id} onChange={this.inputHandler} onKeyDown={this.handleKeyDown} value={this.state.text} type="text" name='input' readOnly={this.state.forEdit} onDoubleClick={this.inputChange} defaultChecked={this.validate} className={this.props.active === true ? 'text__changed': 'text__text'} />
+                <img onClick={this.handler} src='https://avatanplus.com/files/resources/original/59032f6a1d07b15bb4713687.png' className='image'/>
             </div>
         )
     }
