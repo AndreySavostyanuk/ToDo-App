@@ -11,8 +11,8 @@ class TodoItem extends React.Component {
         console.log("14",e.currentTarget.id)
         this.props.checkedOne(e.currentTarget.id)
         //this.setState({ agree: e.currentTarget.checked })
-       // console.log("чекбокс", e.currentTarget.checked);
-       // this.props.active =  e.currentTarget.checked;
+        // console.log("чекбокс", e.currentTarget.checked);
+        // this.props.active =  e.currentTarget.checked;
     }
 
     validate = () => {
@@ -37,9 +37,9 @@ class TodoItem extends React.Component {
     }
 
     inputHandler = e => {
-      this.setState({
-          text : e.currentTarget.value
-      })
+        this.setState({
+            text : e.currentTarget.value
+        })
     }
 
 
@@ -66,7 +66,7 @@ class TodoItem extends React.Component {
                     className='checkbox'
                     type="checkbox"
                     checked={this.props.active}
-                   onChange={this.handleCheckboxChange}
+                    onChange={this.handleCheckboxChange}
                     id={this.props.data.id}/>
                 <label for={this.props.data.id}></label>
                 <input id={this.props.data.id} onChange={this.inputHandler} onKeyDown={this.handleKeyDown} value={this.state.text} type="text" name='input' readOnly={this.state.forEdit} onDoubleClick={this.inputChange} defaultChecked={this.validate} className={this.props.active === true ? 'text__changed': 'text__text'} />

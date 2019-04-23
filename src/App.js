@@ -7,112 +7,117 @@ import './App.css';
 
 class App extends React.Component {
 
-  state = {
-    text: todoData,
-      todo: todoData,
-  }
+    state = {
+        text: todoData,
+        mode: "All"
+    }
 
-  handleAdd = (data , data2) => {
-      data2 = data
-      console.log('data2',data2)
-    const nextText = [data, ...this.state.text]
+    handleAdd = (data) => {
 
-    this.setState({text: nextText})
-      const nextText2 = [data2, ...this.state.todo]
-      this.setState({todo: nextText2})
 
-  }
+        const nextText = [data, ...this.state.text]
 
-  deleteItem = (id) =>{
-      let newData = [...this.state.text] ;
-      newData = newData.filter((item)=>{
-         return item.id !== id
-      })
+        this.setState({text: nextText})
 
-      this.setState({
-         text: newData,
-          todo: newData,
-      });
-  }
+    }
 
-  deleteAllItem = () => {
-      let newData = [...this.state.text] ;
+    modeChange = (mode) => {
+        this.setState({
+            mode : mode
+        })
 
-      let newArray = newData.filter((item)=>{
-          return item.active == false
-      })
+    }
 
-      this.setState({
-          text: newArray,
-          todo: newArray,
-      });
-  }
+    deleteItem = (id) =>{
+        let newData = [...this.state.text] ;
+        newData = newData.filter((item)=>{
+            return item.id !== id
+        })
 
-        checkedOne= (id) =>{
-            let  newData = [...this.state.text];
+        this.setState({
+            text: newData,
 
-           let newArray = newData.map((item) => {
-               if (item.id === +id){
-                   item.active = !item.active
-               }
-               return item
-            });
+        });
+    }
 
-            this.setState({
-                text: newArray
-            })
-}
+    deleteAllItem = () => {
+        let newData = [...this.state.text] ;
 
-        checkedAll = () =>{
-            let  newData = [...this.state.text];
+        let newArray = newData.filter((item)=>{
+            return item.active == false
+        })
 
-            let newArray = newData.map((item) => {
+        this.setState({
+            text: newArray,
 
-                   if ( item.active === false) {
-                       item.active = true
-                   }
-                return item
-            });
+        });
+    }
 
-            this.setState({
-                text: newArray
-            })
-        }
+    checkedOne= (id) =>{
+        let  newData = [...this.state.text];
 
-        filterAll = () => {
-          let  newData = [...this.state.todo];
-
-           if(newData !== this.state.text)
-            {
-                this.setState({
-                    text: newData,
-                })
+        let newArray = newData.map((item) => {
+            if (item.id === +id){
+                item.active = !item.active
             }
-        }
-
-    filterActive = () => {
-        let  newData2 = [...this.state.todo];
-
-        let newArray = newData2.filter((item)=>{
-            return item.active === false
-        })
+            return item
+        });
 
         this.setState({
-           text: newArray
+            text: newArray
         })
     }
 
-    filterCompleted = () => {
-        let  newData2 = [...this.state.todo];
+    checkedAll = () =>{
+        let  newData = [...this.state.text];
 
-        let newArray = newData2.filter((item)=>{
-            return item.active === true
-        })
+        let newArray = newData.map((item) => {
+
+            if ( item.active === false) {
+                item.active = true
+            }
+            return item
+        });
 
         this.setState({
-           text: newArray,
+            text: newArray
         })
     }
+
+    // filterAll = () => {
+    //     let  newData = [...this.state.todo];
+    //
+    //     if(newData !== this.state.text)
+    //     {
+    //         this.setState({
+    //             text: newData,
+    //         })
+    //     }
+    // }
+    //
+    // filterActive = () => {
+    //     let  newData2 = [...this.state.todo];
+    //
+    //     let newArray = newData2.filter((item)=>{
+    //         return item.active === false
+    //     })Zz
+    //
+    //     this.setState({
+    //         text: newArray
+    //     })
+    // }
+    //
+    // filterCompleted = () => {
+    //     let  newData2 = [...this.state.todo];
+    //
+    //     let newArray = newData2.filter((item)=>{
+    //         return item.active === true
+    //     })
+    //
+    //     this.setState({
+    //         text: newArray,
+    //     })
+    // }
 
     textСhange = (id , text) => {
         let  newData = [...this.state.text];
@@ -129,17 +134,47 @@ class App extends React.Component {
         })
     }
 
+    filter = () => {
+        let  newData = [...this.state.text];
+        let  newArray = []
 
-  render() {
-      console.log('app',this.state.text)
-    return (
-      <div className="App">
-        <header className="App-header">
-            <TodoList data={this.state.text} data2={this.state.todo} textСhange={this.textСhange} onAddtext={this.handleAdd} filterAll={this.filterAll} filterCompleted={this.filterCompleted}  filterActive={this.filterActive } deleteAllItem={this.deleteAllItem} checkedAll={this.checkedAll} checkedOne={this.checkedOne} onDeleteItem={this.deleteItem}  />
-        </header>
-      </div>
-    );
-  }
+        if(this.state.mode === 'All'){
+            let newArray = newData.filter((item)=>{
+                return item
+            })
+            return newArray
+        }
+
+        if(this.state.mode === 'Active'){
+            let newArray = newData.filter((item)=>{
+                return item.active === false
+            })
+            return newArray
+        }
+
+        if(this.state.mode === 'Completed'){
+            let newArray = newData.filter((item)=>{
+                return item.active === true
+            })
+            return newArray
+        }
+        console.log("newArray", newArray)
+
+    }
+
+
+    render() {
+        console.log('app',this.state.text)
+        console.log("mode", this.state.mode)
+        console.log("filter", this.filter())
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <TodoList data={this.filter()} items={this.state.text} data2={this.state.todo} modeChange={this.modeChange} textСhange={this.textСhange} onAddtext={this.handleAdd}  deleteAllItem={this.deleteAllItem} checkedAll={this.checkedAll} checkedOne={this.checkedOne} onDeleteItem={this.deleteItem}  />
+                </header>
+            </div>
+        );
+    }
 }
 
 export default App;

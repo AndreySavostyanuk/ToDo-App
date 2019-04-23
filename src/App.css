@@ -54,12 +54,18 @@
   outline:none;
 }
 
+.text::-webkit-input-placeholder{
+
+  font-style: italic;
+  color: #cccccc;
+}
+
 p {
   color: #999999;
 }
 
 .todo-list {
-  width: 400px;
+  width: 500px;
   background-color: white;
   margin: auto;
   display: flex;
@@ -101,7 +107,7 @@ p {
 }
 
 .spisokItems li:hover {
-  background-color: #cecece;
+
   cursor: pointer;
 }
 
@@ -199,16 +205,14 @@ p {
 }
 
 .All {
-  background-color: #cecece;
-  color: #ffffff;
+  border: 1px solid gainsboro;;
 }
 .Active {
-  background-color:  #cecece;
-  color: #ffffff
+  border: 1px solid gainsboro;
 }
 .Completed {
-  background-color:  #cecece;
-  color: #ffffff
+  border: 1px solid gainsboro;
+
 }
 
 .todo-item{
@@ -255,6 +259,8 @@ p {
   opacity: 1;
 }
 
-
+.display {
+  display: none;
+}
 
 
