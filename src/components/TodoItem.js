@@ -1,5 +1,6 @@
 import React from 'react'
-
+import 'react-toastify/dist/ReactToastify.min.css'
+import { toast } from 'react-toastify';
 
 class TodoItem extends React.Component {
     state = {
@@ -8,11 +9,7 @@ class TodoItem extends React.Component {
     }
 
     handleCheckboxChange = e => {
-        console.log("14",e.currentTarget.id)
         this.props.checkedOne(e.currentTarget.id)
-        //this.setState({ agree: e.currentTarget.checked })
-        // console.log("чекбокс", e.currentTarget.checked);
-        // this.props.active =  e.currentTarget.checked;
     }
 
     validate = () => {
@@ -22,18 +19,15 @@ class TodoItem extends React.Component {
     }
 
     handler = () => {
-       
-            const {id} = this.props.data
-            this.props.onDelete(id)
+        const {id} = this.props.data
 
+        this.props.onDelete(id)
     }
 
     inputChange = () => {
         this.setState({
             forEdit : !this.state.forEdit
         });
-        // this.state.forEdit = e.currentTarget.readOnly
-        console.log("readonly",  this.state.forEdit)
     }
 
     inputHandler = e => {
@@ -42,19 +36,24 @@ class TodoItem extends React.Component {
         })
     }
 
-
-
     handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             this.props.changeText(e.currentTarget.id , e.currentTarget.value)
+
+            toast.success('text has been changed', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
 
             this.setState({
                 forEdit : !this.state.forEdit
             });
         }
     }
-
-
 
     render() {
 
@@ -69,8 +68,20 @@ class TodoItem extends React.Component {
                     onChange={this.handleCheckboxChange}
                     id={this.props.data.id}/>
                 <label for={this.props.data.id}></label>
-                <input id={this.props.data.id} onChange={this.inputHandler} onKeyDown={this.handleKeyDown} value={this.state.text} type="text" name='input' readOnly={this.state.forEdit} onDoubleClick={this.inputChange} defaultChecked={this.validate} className={this.props.active === true ? 'text__changed': 'text__text'} />
-                <img onClick={this.handler} src='https://avatanplus.com/files/resources/original/59032f6a1d07b15bb4713687.png' className='image'/>
+                <input
+                    id={this.props.data.id}
+                    onChange={this.inputHandler}
+                    onKeyDown={this.handleKeyDown}
+                    value={this.state.text}
+                    type="text"
+                    name='input'
+                    readOnly={this.state.forEdit}
+                    onDoubleClick={this.inputChange}
+                    defaultChecked={this.validate}
+                    className={this.props.active === true ? 'text__changed': 'text__text'} />
+                <img onClick={this.handler}
+                     src='https://avatanplus.com/files/resources/original/59032f6a1d07b15bb4713687.png'
+                     className='image'/>
             </div>
         )
     }

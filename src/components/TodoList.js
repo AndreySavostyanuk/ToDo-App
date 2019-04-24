@@ -1,11 +1,13 @@
 import React, {Component} from "react"
 import {TodoItem} from "./TodoItem"
+import { toast } from 'react-toastify';
 
 class TodoList extends Component {
 
     state = {
-        text: '',
-        currentList: 'All'
+        text:'',
+        currentList: 'All',
+        arrow: true,
     }
 
     renderText = () => {
@@ -14,12 +16,17 @@ class TodoList extends Component {
 
         if (data.length) {
             textTemplate = data.map((item) => {
-                return <TodoItem key={item.id} data={item} active={item.active} changeText={this.props.textСhange}  checkedOne={this.props.checkedOne} onDelete={this.props.onDeleteItem} />
+                return <TodoItem
+                    key={item.id}
+                    data={item}
+                    active={item.active}
+                    changeText={this.props.textСhange}
+                    checkedOne={this.props.checkedOne}
+                    onDelete={this.props.onDeleteItem} />
             })
         }
 
         return textTemplate
-
     }
 
     onBtnClickHandler = () => {
@@ -35,12 +42,24 @@ class TodoList extends Component {
             if(text.trim() == false){
                 return alert("необходимо что нибудь ввести")
             } else {
+                toast.success("task added", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
                 this.props.onAddtext({
                     id: +new Date(),
                     text,
                     active: false,
                 })
             }
+
+            this.setState({
+                text : ''
+            })
         }
     }
 
@@ -58,32 +77,57 @@ class TodoList extends Component {
     }
 
     arrowCheck = () => {
-        this.props.checkedAll()
+        const {arrow} = this.state
+
+
+
+        if (this.state.arrow === false){
+             this.setState({
+                 arrow: true
+             })
+        } else if (this.state.arrow === true) {
+            this.setState({
+                arrow: false
+            })
+        }
+
+        this.props.checkedAll(arrow)
     }
 
     isActive = (e) =>{
-
-        console.log("current",  e.currentTarget.innerHTML )
-
-
-
         this.state.currentList = e.currentTarget.innerHTML
-
         this.props.modeChange(e.currentTarget.innerHTML)
+    }
 
+    arrowChange= () => {
+        if(this.state.arrow === true  ) {
+            return "image__arrow"
+        } else {
+           return  "image__arrow_active"
+        }
+    }
 
+    clearChange = () => {
+        const { data } = this.props
+            let textTemplate = data.filter((item) => {
+               return  item.active === true
+            })
 
+        if(textTemplate.length) {
+            return true
+        }
     }
 
     render() {
         const{text, data, items} = this.props
 
-
         return (
             <div className="todo-list">
                 <div className="header">
                     { data.length ?
-                        <img src="https://image.flaticon.com/icons/png/512/25/25623.png" className="image__arrow"  onClick={this.arrowCheck}/>
+                        <img src="https://www.tjonline.ru/delivery/img/down.png"
+                             className={this.arrowChange()}
+                             onClick={this.arrowCheck}/>
                         : null}
                     <input
                         id='text'
@@ -109,19 +153,33 @@ class TodoList extends Component {
                          }
                      </span>
 
-                        <ul
-                            className='spisokItems'>
-                            <li className={this.state.currentList === 'All' ? 'All' : ''} onClick={this.isActive} value='All' >All</li>
-                            <li className={this.state.currentList === 'Active' ? 'Active' : ''} onClick={this.isActive} value='Active' >Active</li>
-                            <li className={this.state.currentList === 'Completed' ? 'Completed' : ''} onClick={this.isActive} value='Completed' >Completed</li>
-                        </ul>
+                            <ul
+                                className={this.clearChange() === true ? "spisokItems" : "spisokItems2"}>
+                                <li className={this.state.currentList === 'All' ? 'All' : ''}
+                                    onClick={this.isActive}
+                                    value='All'>
+                                    All
+                                </li>
+                                <li className={this.state.currentList  === 'Active' ? 'Active' : ''}
+                                    onClick={this.isActive}
+                                    value='Active'>
+                                    Active
+                                </li>
+                                <li className={this.state.currentList === 'Completed' ? 'Completed' : ''}
+                                    onClick={this.isActive}
+                                    value='Completed'>
+                                    Completed
+                                </li>
+                            </ul>
 
-                        <p
-                            className="button"
-                            onClick={this.onBtnClickHandler}
-                            disabled={!this.validate}>
-                            Clear completed
-                        </p>
+                        { this.clearChange() === true ?
+                            <p
+                                className="button"
+                                onClick={this.onBtnClickHandler}
+                                disabled={!this.validate}>
+                                Clear completed
+                            </p>
+                        : null}
 
                     </div>
                     : null}

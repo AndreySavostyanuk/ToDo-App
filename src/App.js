@@ -3,7 +3,9 @@ import {TodoList} from "./components/TodoList"
 import {TodoItem} from "./components/TodoItem"
 import todoData from './data/todoData'
 import './App.css';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { toast } from 'react-toastify';
 
 class App extends React.Component {
 
@@ -13,19 +15,17 @@ class App extends React.Component {
     }
 
     handleAdd = (data) => {
-
-
         const nextText = [data, ...this.state.text]
 
-        this.setState({text: nextText})
-
+        this.setState({
+            text: nextText
+        })
     }
 
     modeChange = (mode) => {
         this.setState({
             mode : mode
         })
-
     }
 
     deleteItem = (id) =>{
@@ -33,6 +33,15 @@ class App extends React.Component {
         newData = newData.filter((item)=>{
             return item.id !== id
         })
+
+        toast.error('task deleted', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
 
         this.setState({
             text: newData,
@@ -43,12 +52,22 @@ class App extends React.Component {
         let newData = [...this.state.text] ;
 
         let newArray = newData.filter((item)=>{
-            return item.active == false
+            return item.active === false
         })
+
+        if (newArray.length === 0){
+            toast.error('All task deleted', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+        }
 
         this.setState({
             text: newArray,
-
         });
     }
 
@@ -67,16 +86,34 @@ class App extends React.Component {
         })
     }
 
-    checkedAll = () =>{
+    checkedAll = (arrow) =>{
         let  newData = [...this.state.text];
 
         let newArray = newData.map((item) => {
-
-            if ( item.active === false) {
-                item.active = true
-            }
+            item.active = arrow
             return item
         });
+
+        if(arrow === true)
+        {
+            toast.info('all task are marked!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+        } else {
+            toast.info('Removed mark of all task', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+        }
 
         this.setState({
             text: newArray
@@ -114,6 +151,15 @@ class App extends React.Component {
             let newArray = newData.filter((item)=>{
                 return item.active === false
             })
+            toast.info('Active task selected', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+
             return newArray
         }
 
@@ -121,19 +167,47 @@ class App extends React.Component {
             let newArray = newData.filter((item)=>{
                 return item.active === true
             })
+
+            toast.info('Completed task selected', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
+
             return newArray
         }
-
-
     }
-
 
     render() {
 
         return (
             <div className="App">
                 <header className="App-header">
-                    <TodoList data={this.filter()} items={this.state.text} data2={this.state.todo} modeChange={this.modeChange} textСhange={this.textСhange} onAddtext={this.handleAdd}  deleteAllItem={this.deleteAllItem} checkedAll={this.checkedAll} checkedOne={this.checkedOne} onDeleteItem={this.deleteItem}  />
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnVisibilityChange
+                            draggable
+                            pauseOnHover/>
+                    <p className="todos">todos</p>
+                    <TodoList
+                        data={this.filter()}
+                        items={this.state.text}
+                        data2={this.state.todo}
+                        modeChange={this.modeChange}
+                        textСhange={this.textСhange}
+                        onAddtext={this.handleAdd}
+                        deleteAllItem={this.deleteAllItem}
+                        checkedAll={this.checkedAll}
+                        checkedOne={this.checkedOne}
+                        onDeleteItem={this.deleteItem}  />
                 </header>
             </div>
         );
