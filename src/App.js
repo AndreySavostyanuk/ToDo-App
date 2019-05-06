@@ -1,9 +1,9 @@
 import React from 'react'
 import {TodoList} from "./components/TodoList"
 import './App.css';
-import { ToastContainer } from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import axios from "axios";
 
 class App extends React.Component {
@@ -15,11 +15,11 @@ class App extends React.Component {
 
     handleData = () => {
         axios
-            .get('http://localhost:3000/users')
+            .get('http://localhost:3000/todoList')
             .then(response => {
-                 this.setState({
-                     text: response.data
-                 });
+                this.setState({
+                    text: response.data
+                });
             })
             .catch(error => {
                 console.log(error)
@@ -36,13 +36,13 @@ class App extends React.Component {
 
     modeChange = (mode) => {
         this.setState({
-            mode : mode
+            mode: mode
         });
     };
 
-    deleteItem = (id) =>{
+    deleteItem = (id) => {
         axios
-            .delete('http://localhost:3000/users/'+ id)
+            .delete(`http://localhost:3000/todoList/${id}`)
             .then(response => {
                 this.setState({
                     text: response.data
@@ -65,7 +65,7 @@ class App extends React.Component {
 
     deleteAllItem = () => {
         axios
-            .delete('http://localhost:3000/users')
+            .delete('http://localhost:3000/todoList')
             .then(response => {
                 this.setState({
                     text: response.data
@@ -85,10 +85,10 @@ class App extends React.Component {
             });
     };
 
-    checkedOne= (id, active) =>{
+    checkedOne = (id, active) => {
         axios
-            .put('http://localhost:3000/users/'+ id , {
-                "active" : !!active
+            .put(`http://localhost:3000/todoList/${id}`, {
+                "active": !!active
             })
             .then(response => {
                 this.setState({
@@ -101,7 +101,7 @@ class App extends React.Component {
     };
 
     checkedAll = (arrow) => {
-        if(arrow === true) {
+        if (arrow === true) {
             toast.info('all task are marked!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -112,8 +112,8 @@ class App extends React.Component {
             });
 
             axios
-                .put('http://localhost:3000/users' , {
-                    "active" : arrow
+                .put('http://localhost:3000/todoList', {
+                    "active": arrow
                 })
                 .then(response => {
                     this.setState({
@@ -135,8 +135,8 @@ class App extends React.Component {
             });
 
             axios
-                .put('http://localhost:3000/users' , {
-                    "active" : !!arrow
+                .put('http://localhost:3000/todoList', {
+                    "active": !!arrow
                 })
                 .then(response => {
                     this.setState({
@@ -146,17 +146,19 @@ class App extends React.Component {
                 .catch(error => {
                     console.log(error);
                 });
-        };
+        }
+        ;
 
     };
 
-    textСhange = (id , text) => {
-        let  newData = [...this.state.text];
+    textChange = (id, text) => {
+        let newData = [...this.state.text];
 
         let newArray = newData.map((item) => {
-            if (item.id === +id){
+            if (item.id === +id) {
                 item.text = text
-            };
+            }
+            ;
             return item;
         });
 
@@ -166,33 +168,36 @@ class App extends React.Component {
     };
 
     filter = () => {
-        let  newData = [...this.state.text];
+        let newData = [...this.state.text];
 
 
-        if(this.state.mode === 'All'){
+        if (this.state.mode === 'All') {
             let newArray = newData.filter((item) => {
                 return item;
             });
             return newArray;
-        };
+        }
+        ;
 
-        if(this.state.mode === 'Active'){
+        if (this.state.mode === 'Active') {
 
             let newArray = newData.filter((item) => {
                 return item.active === false
             });
 
             return newArray;
-        };
+        }
+        ;
 
-        if(this.state.mode === 'Completed'){
+        if (this.state.mode === 'Completed') {
 
             let newArray = newData.filter((item) => {
                 return item.active === true;
             });
 
             return newArray;
-        };
+        }
+        ;
     };
 
     render() {
@@ -200,29 +205,28 @@ class App extends React.Component {
         return (
             <div className="App">
                 <header className="App-header">
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={ 5000 }
-                            hideProgressBar={ false }
-                            newestOnTop={ false }
-                            closeOnClick
-                            rtl={ false }
-                            pauseOnVisibilityChange
-                            draggable
-                            pauseOnHover/>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnVisibilityChange
+                        draggable
+                        pauseOnHover/>
                     <p className="todos">todos</p>
                     <TodoList
-                        data={ this.filter() }
-                        items={ this.state.text }
-                        data2={ this.state.todo }
-                        handleData={ this.handleData() }
-                        modeChange={ this.modeChange }
-                        textСhange={ this.textСhange }
-                        onAddtext={ this.handleAdd }
-                        deleteAllItem={ this.deleteAllItem }
-                        checkedAll={ this.checkedAll }
-                        checkedOne={ this.checkedOne }
-                        onDeleteItem={ this.deleteItem }/>
+                        data={this.filter()}
+                        items={this.state.text}
+                        handleData={this.handleData()}
+                        modeChange={this.modeChange}
+                        textChange={this.textChange}
+                        onAddtext={this.handleAdd}
+                        deleteAllItem={this.deleteAllItem}
+                        checkedAll={this.checkedAll}
+                        checkedOne={this.checkedOne}
+                        onDeleteItem={this.deleteItem}/>
                 </header>
             </div>
         );

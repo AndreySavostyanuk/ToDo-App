@@ -89,7 +89,7 @@ p {
           0 20px 1px -9px rgba(0,0,0,0.15);
 }
 
-.spisokItems{
+.listItems{
   display: flex;
   color: #999999;
   font-family: Roboto, sans-serif;
@@ -100,7 +100,7 @@ p {
   justify-content: center;
 }
 
-.spisokItems2{
+.listItems2{
   display: flex;
   color: #999999;
   font-family: Roboto, sans-serif;

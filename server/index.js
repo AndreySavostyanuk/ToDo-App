@@ -15,19 +15,19 @@ routes.use(
     })
 );
 
-routes.get('/',(request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' });
+routes.get('/', (request, response) => {
+    response.json({info: 'Node.js, Express, and Postgres API'});
 });
 
-routes.get('/users', db.getUsers);
-routes.get('/users/active', db.getActive);
-routes.get('/users/:id', db.getUserById);
-routes.post('/users', db.createUser);
-routes.put('/users/:id', db.updateUser);
-routes.put('/users/text/:id', db.updateText);
-routes.delete('/users/:id', db.deleteUser);
-routes.delete('/users', db.deleteAllActive);
-routes.put('/users', db.updateActive);
+routes.get('/todoList', db.getTodoList);
+routes.get('/todoList/active', db.getActive);
+routes.get('/todoList/:id', db.getTodoItemById);
+routes.post('/todoList', db.createTodoItem);
+routes.put('/todoList/:id', db.updateTodoItem);
+routes.put('/todoList/text/:id', db.updateText);
+routes.delete('/todoList/:id', db.deleteTodoItem);
+routes.delete('/todoList', db.deleteAllActive);
+routes.put('/todoList', db.updateActive);
 
 
 routes.listen(port, () => {

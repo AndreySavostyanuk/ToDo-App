@@ -23,10 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-<<<<<<< HEAD
 
 .idea
 
 .gitignore
-=======
->>>>>>> 11a05ab484551971bbcdf4f57eefa371a2dc5697
+
