@@ -8,14 +8,12 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-console.log(config)
-
 const getTodoList = (request, response) => {
     pool.query('SELECT * FROM todo ORDER BY id ASC', (error, results) => {
         if (error) {
             throw  error;
         }
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows);
     });
 };
 
@@ -24,7 +22,7 @@ const getActive = (request, response) => {
         if (error) {
             throw  error;
         }
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows);
     });
 };
 
@@ -35,7 +33,7 @@ const getTodoItemById = (request, response) => {
         if (error) {
             throw error;
         }
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows);
     });
 };
 
@@ -46,7 +44,7 @@ const createTodoItem = (request, response) => {
         if (error) {
             throw error;
         }
-        response.status(201).send('User added with ID: ${result.insertId}')
+        response.status(201).send('User added with ID: ${result.insertId}');
     });
 };
 
@@ -60,7 +58,7 @@ const updateTodoItem = (request, response) => {
             if (error) {
                 throw error;
             }
-            response.status(200).send(`User modified with ID: ${id}`)
+            response.status(200).send(`User modified with ID: ${id}`);
         }
     )
 };
@@ -89,7 +87,7 @@ const updateActive = (request, response) => {
             if (error) {
                 throw error;
             }
-            response.status(200).send(`User modified with ID: ${id}`)
+            response.status(200).send(`User modified with ID: ${id}`);
         }
     )
 };
@@ -101,7 +99,7 @@ const deleteTodoItem = (request, response) => {
         if (error) {
             throw error;
         }
-        response.status(200).send(`User deleted with ID: ${id}`)
+        response.status(200).send(`User deleted with ID: ${id}`);
     });
 };
 
@@ -112,7 +110,7 @@ const deleteAllActive = (request, response) => {
         if (error) {
             throw error;
         }
-        response.status(200).send(`User deleted with ID: ${id}`)
+        response.status(200).send(`User deleted with ID: ${id}`);
     });
 };
 

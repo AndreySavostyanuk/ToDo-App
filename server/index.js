@@ -29,7 +29,6 @@ routes.delete('/todoList/:id', db.deleteTodoItem);
 routes.delete('/todoList', db.deleteAllActive);
 routes.put('/todoList', db.updateActive);
 
-
 routes.listen(port, () => {
     console.log(`App running on port ${port}.`);
 });
